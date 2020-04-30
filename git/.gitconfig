@@ -1,0 +1,96 @@
+[user]
+  name = Isaiah Olson
+  email = isaiahols@gmail.com
+  
+[core]
+  excludesfile = ~/.gitignore_global
+  editor = vim
+  filemode = false
+  trustctime = false
+  autocrlf = input
+  pager = less -+F
+
+# This makes it so only the current branch is pushed to the remote instead of the default behavior of all the branches.
+[push]
+  default = current
+
+[alias]
+  # List log with colors, short form, annotations
+  ls = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
+
+  # List commits with changed files
+  ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
+
+  # List commits show dates
+  lds = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short
+
+  lg = log
+  
+  #
+  dl = !git ll -1
+
+  # Do diff of current against previous
+  dlc = diff --cached HEAD^
+
+  #List all aliases
+  la = !git config -l | grep alias | cut -c 7-
+
+  unstage = reset --hard HEAD
+  amend = commit --amend --reuse-message=HEAD
+  show-ignored = "! git clean -ndX | perl -pe 's/Would remove/Ignored:/'"
+
+  graph = log --graph --all --pretty=format:'%C(red)%h%Creset%C(bold blue)%d%Creset %s%Cgreen (%cr) %C(magenta)<%an>%Creset' --abbrev-commit
+
+  # Basic aliases
+  st = status -s
+  stl = status
+  cl = clone
+  ci = commit
+  co = checkout
+  br = branch
+  diff = diff --word-diff
+  dc = diff --cached
+  cob = checkout -b
+
+#[pager]
+#  diff = diff-so-fancy | less --tabs=4 -RFX
+#  show = diff-so-fancy | less --tabs=4 -RFX
+
+[color]
+  ui = auto
+
+[color "branch"]
+  current = yellow reverse
+  local = yellow
+  remote = green
+
+[color "diff"]
+  meta = yellow bold
+  frag = magenta bold
+  old = red bold
+  new = green bold
+
+[color "status"]
+  added = yellow
+  changed = green
+  untracked = cyan
+
+[color "diff-highlight"]
+  oldNormal = "red bold"
+  oldHighlight = "red bold 52"
+  newNormal = "green bold"
+  newHighlight = "green bold 22"
+
+[grep]
+  lineNumber = true
+
+[help]
+  autocorrect = 1
+
+[difftool]
+  prompt = false
+
+[mergetool]
+  prompt = false
+
+#  followTags = true

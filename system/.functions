@@ -1,0 +1,246 @@
+
+# Tmux
+
+finished_alarm()
+{
+  echo -e '\a'
+}
+
+# Create a new directory and enter it
+function mk() {
+  mkdir -p "$@" && cd "$@"
+}
+
+
+# Extra many types of compressed packages
+# Credit: http://nparikh.org/notes/zshrc.txt
+extract() {
+  if [ -f "$1" ]; then
+    case "$1" in
+      *.jar)      tar -xvf "$1"                         ;;
+      *.tar.xz)   tar -Jxvf "$1"                        ;;
+      *.tar.bz2)  tar -jxvf "$1"                        ;;
+      *.tar.gz)   tar -zxvf "$1"                        ;;
+      *.bz2)      bunzip2 "$1"                          ;;
+      *.dmg)      hdiutil mount "$1"                    ;;
+      *.gz)       gunzip "$1"                           ;;
+      *.tar)      tar -xvf "$1"                         ;;
+      *.tbz2)     tar -jxvf "$1"                        ;;
+      *.tgz)      tar -zxvf "$1"                        ;;
+      *.zip)      unzip "$1"                            ;;
+      *.ZIP)      unzip "$1"                            ;;
+      *.pax)      cat "$1" | pax -r                     ;;
+      *.pax.Z)    uncompress "$1" --stdout | pax -r     ;;
+      *.Z)        uncompress "$1"                       ;;
+      *) echo "'$1' cannot be extracted/mounted via extract()" ;;
+    esac
+  else
+     echo "'$1' is not a valid file to extract"
+  fi
+}
+
+
+# Show line, optionally show surrounding lines
+line() {
+  local LINE_NUMBER=$1
+  local LINES_AROUND=${2:-0}
+  sed -n "`expr $LINE_NUMBER - $LINES_AROUND`,`expr $LINE_NUMBER + $LINES_AROUND`p"
+}
+
+
+# Show duplicate/unique lines
+# Source: https://github.com/ain/.dotfiles/commit/967a2e65a44708449b6e93f87daa2721929cb87a
+duplines() {
+  sort $1 | uniq -d
+}
+
+uniqlines() {
+  sort $1 | uniq -u
+}
+
+
+# Get named var (usage: get "VAR_NAME") 
+get() { 
+  echo "${!1}" 
+} 
+
+
+# Executable 
+is_executable() { 
+  local BIN=$(command -v "$1" 2>/dev/null) 
+  if [[ ! $BIN == "" && -x $BIN ]]; then true; else false; fi 
+} 
+
+is_supported() { 
+  if [ $# -eq 1 ]; then 
+    if eval "$1" > /dev/null 2>&1; then true; else false; fi 
+  else 
+    if eval "$1" > /dev/null 2>&1; then 
+      echo -n "$2" 
+    else 
+      echo -n "$3" 
+    fi 
+  fi 
+} 
+
+
+# Add to path 
+prepend_path() { 
+  [ -d $1 ] && PATH="$1:$PATH" 
+} 
+
+
+# Show 256 TERM colors 
+colors() { 
+  local X=$(tput op) 
+  local Y=$(printf %$((COLUMNS-6))s) 
+  for i in {0..256}; do 
+  o=00$i; 
+  echo -e ${o:${#o}-3:3} $(tput setaf $i;tput setab $i)${Y// /=}$X; 
+  done
+  finished_alarm
+} 
+
+
+# Calculator 
+calc() { 
+  echo "$*" | bc -l; 
+} 
+
+up() {
+  for D in $(seq 1 $1);
+    do 
+      cd ..
+  done
+}
+
+
+# Weather 
+meteo() { 
+  local CITY=${1:-Utrecht} 
+  curl -4 "wttr.in/$CITY"
+  finished_alarm
+} 
+
+# Make that calls bear first
+make()
+{
+  /usr/bin/make "$@"
+  finished_alarm
+}
+
+conan()
+{
+  /usr/local/bin/conan "$@"
+  finished_alarm
+}
+
+ninja()
+{
+  /usr/local/bin/ninja "$@"
+  finished_alarm
+}
+
+#####################
+# MX specific
+#####################
+
+dev_tool_on()
+{
+  sed -i "" "s/dev_tools:.*/dev_tools: true/g" config/bob.yaml
+  finished_alarm
+}
+
+wl()
+{
+  case "$1" in
+  "afcu")
+    rake whitelabel:download[APP-dd13647a-f81d-5613-14a5-948fdb7ed8c9]
+    ;;
+  "becu")
+    rake whitelabel:download[APP-5dedb680-27e3-32ce-854b-cfd707d592c5]
+    ;;
+  "sand")
+    rake whitelabel:download[APP-a4e9fbb7-c7e8-8fc5-727a-ef4340849193]
+    ;;
+  "hughes")
+    rake whitelabel:download[APP-7c972e75-8933-4278-beb2-50e01b8ce5ba]
+    ;;
+  "cpb")
+    rake whitelabel:download[APP-fd14cfeb-38f5-426b-8615-ee2a118190d7]
+    ;;
+  "v")
+    rake whitelabel:download[APP-e2628772-9c86-93ba-6c91-1c6f1a7d262a]
+    ;;
+  "gg")
+    # GG
+    rake whitelabel:download[APP-0308b12a-c714-7efc-f600-b7fcac530058]
+    ;;
+    "hammer")
+    rake whitelabel:download[APP-392162dc-7c4a-48b1-81a0-a3394c521b28]
+    ;;
+    *)
+    rake whitelabel:download[$1]
+    ;;
+  esac
+  finished_alarm
+}
+
+apple()
+{
+  dev_tool_on
+  rake configure:apple $@
+  finished_alarm
+}
+
+android()
+{
+  dev_tool_on
+  rake configure:android $@
+  finished_alarm
+}
+
+iwyu-mx()
+{
+  echo "[IWYU] Start"
+  bundle exec iwyu-check inspect --verbose --jobs=4 --git --branch="origin/master"
+  echo "[IWYU] Finished"
+  finished_alarm
+}
+
+clang-tidy-check()
+{
+  echo "[Clang-tidy] Start"
+  bundle exec clang-tidy-check inspect --verbose --jobs=4 --git --header-filter="moneymobilex/src" --branch="origin/master"
+  echo "[Clang-tidy] Finished"
+  finished_alarm
+}
+
+cpp-check()
+{
+  echo "[CPP] Start"
+  bundle exec cpp-check inspect -v
+  echo "[CPP] Finished"
+  finished_alarm
+}
+
+analyze()
+{
+  iwyu-mx
+  clang-tidy-check
+  cpp-check
+  finished_alarm
+}
+
+
+# Colorize make output
+#  make()
+#  {
+#    pathpat="^.*:[0-9]+.*$"
+#    ccred=$(echo -e "\033[0;31m")
+#    ccyelloe=$(echo -e "\033[0;33m")
+#    ccend=$(echo -e "\033[0m")
+#    /usr/bin/make "$@" 2>&1 | sed -E -e "/[Ee]rror[: ]/ s%$pathpat%$ccred&$ccend%g" -e "/[Ww]arning[: ]/ s%$pathpat%$ccyelloe&$ccend%g"
+#    return ${PIPESTATUS[0]}
+#  }
+#

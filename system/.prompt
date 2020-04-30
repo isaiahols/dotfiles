@@ -1,0 +1,139 @@
+## Prompt
+
+_bash_prompt_config() {
+
+  local USER_SYMBOL="\u"
+  local HOST_SYMBOL="\h"
+  local ESC_OPEN="\["
+  local ESC_CLOSE="\]"
+
+  if tput setaf >/dev/null 2>&1 ; then
+    _setaf () { tput setaf "$1" ; }
+    local RESET="${ESC_OPEN}$( { tput sgr0 || tput me ; } 2>/dev/null )${ESC_CLOSE}"
+    local BOLD="$( { tput bold || tput md ; } 2>/dev/null )"
+  else
+    # Fallback
+    _setaf () { echo "\033[0;$(($1+30))m" ; }
+    local RESET="\033[m"
+    local BOLD=""
+    ESC_OPEN=""
+    ESC_CLOSE=""
+  fi
+
+  # Normal colors
+  local BLACK="${ESC_OPEN}$(_setaf 0)${ESC_CLOSE}"
+  local RED="${ESC_OPEN}$(_setaf 1)${ESC_CLOSE}"
+  local GREEN="${ESC_OPEN}$(_setaf 2)${ESC_CLOSE}"
+  local YELLOW="${ESC_OPEN}$(_setaf 3)${ESC_CLOSE}"
+  local BLUE="${ESC_OPEN}$(_setaf 4)${ESC_CLOSE}"
+  local VIOLET="${ESC_OPEN}$(_setaf 5)${ESC_CLOSE}"
+  local CYAN="${ESC_OPEN}$(_setaf 6)${ESC_CLOSE}"
+  local WHITE="${ESC_OPEN}$(_setaf 7)${ESC_CLOSE}"
+
+  # Bright colors
+  local BRIGHT_GREEN="${ESC_OPEN}$(_setaf 10)${ESC_CLOSE}"
+  local BRIGHT_YELLOW="${ESC_OPEN}$(_setaf 11)${ESC_CLOSE}"
+  local BRIGHT_BLUE="${ESC_OPEN}$(_setaf 12)${ESC_CLOSE}"
+  local BRIGHT_VIOLET="${ESC_OPEN}$(_setaf 13)${ESC_CLOSE}"
+  local BRIGHT_CYAN="${ESC_OPEN}$(_setaf 14)${ESC_CLOSE}"
+  local BRIGHT_WHITE="${ESC_OPEN}$(_setaf 15)${ESC_CLOSE}"
+
+  # Bold colors
+  local BLACK_BOLD="${ESC_OPEN}${BOLD}$(_setaf 0)${ESC_CLOSE}"
+  local RED_BOLD="${ESC_OPEN}${BOLD}$(_setaf 1)${ESC_CLOSE}"
+  local GREEN_BOLD="${ESC_OPEN}${BOLD}$(_setaf 2)${ESC_CLOSE}"
+  local YELLOW_BOLD="${ESC_OPEN}${BOLD}$(_setaf 3)${ESC_CLOSE}"
+  local BLUE_BOLD="${ESC_OPEN}${BOLD}$(_setaf 4)${ESC_CLOSE}"
+  local VIOLET_BOLD="${ESC_OPEN}${BOLD}$(_setaf 5)${ESC_CLOSE}"
+  local CYAN_BOLD="${ESC_OPEN}${BOLD}$(_setaf 6)${ESC_CLOSE}"
+  local WHITE_BOLD="${ESC_OPEN}${BOLD}$(_setaf 7)${ESC_CLOSE}"
+
+
+  #gruvbox colors
+  local GB_BG_BLACK="${ESC_OPEN}${BOLD}$(_setaf 235)${ESC_CLOSE}"
+  local GB_RED_1="${ESC_OPEN}${BOLD}$(_setaf 124)${ESC_CLOSE}"
+  local GB_RED_2="${ESC_OPEN}${BOLD}$(_setaf 167)${ESC_CLOSE}"
+  local GB_GREEN_1="${ESC_OPEN}${BOLD}$(_setaf 106)${ESC_CLOSE}"
+  local GB_GREEN_2="${ESC_OPEN}${BOLD}$(_setaf 142)${ESC_CLOSE}"
+  local GB_YELLOW_1="${ESC_OPEN}${BOLD}$(_setaf 172)${ESC_CLOSE}"
+  local GB_YELLOW_2="${ESC_OPEN}${BOLD}$(_setaf 214)${ESC_CLOSE}"
+  local GB_BLUE_1="${ESC_OPEN}${BOLD}$(_setaf 66)${ESC_CLOSE}"
+  local GB_BLUE_2="${ESC_OPEN}${BOLD}$(_setaf 109)${ESC_CLOSE}"
+  local GB_PURPLE_1="${ESC_OPEN}${BOLD}$(_setaf 132)${ESC_CLOSE}"
+  local GB_PURPLE_2="${ESC_OPEN}${BOLD}$(_setaf 175)${ESC_CLOSE}"
+  local GB_AQUA_1="${ESC_OPEN}${BOLD}$(_setaf 72)${ESC_CLOSE}"
+  local GB_AQUA_2="${ESC_OPEN}${BOLD}$(_setaf 108)${ESC_CLOSE}"
+  local GB_ORANGE_1="${ESC_OPEN}${BOLD}$(_setaf 166)${ESC_CLOSE}"
+  local GB_ORANGE_2="${ESC_OPEN}${BOLD}$(_setaf 208)${ESC_CLOSE}"
+  local GB_GRAY_1="${ESC_OPEN}${BOLD}$(_setaf 246)${ESC_CLOSE}"
+  local GB_GRAY_2="${ESC_OPEN}${BOLD}$(_setaf 245)${ESC_CLOSE}"
+  local GB_GRAY_A="${ESC_OPEN}${BOLD}$(_setaf 245)${ESC_CLOSE}"
+  local GB_BG_0_H="${ESC_OPEN}${BOLD}$(_setaf 234)${ESC_CLOSE}"
+  local GB_BG_0="${ESC_OPEN}${BOLD}$(_setaf 235)${ESC_CLOSE}"
+  local GB_BG_1="${ESC_OPEN}${BOLD}$(_setaf 237)${ESC_CLOSE}"
+  local GB_BG_2="${ESC_OPEN}${BOLD}$(_setaf 239)${ESC_CLOSE}"
+  local GB_BG_3="${ESC_OPEN}${BOLD}$(_setaf 241)${ESC_CLOSE}"
+  local GB_BG_4="${ESC_OPEN}${BOLD}$(_setaf 243)${ESC_CLOSE}"
+  local GB_BG_0_S="${ESC_OPEN}${BOLD}$(_setaf 236)${ESC_CLOSE}"
+  local GB_FG="${ESC_OPEN}${BOLD}$(_setaf 223)${ESC_CLOSE}"
+  local GB_FG_4="${ESC_OPEN}${BOLD}$(_setaf 246)${ESC_CLOSE}"
+  local GB_FG_3="${ESC_OPEN}${BOLD}$(_setaf 248)${ESC_CLOSE}"
+  local GB_FG_2="${ESC_OPEN}${BOLD}$(_setaf 259)${ESC_CLOSE}"
+  local GB_FG_1="${ESC_OPEN}${BOLD}$(_setaf 223)${ESC_CLOSE}"
+  local GB_FG_0="${ESC_OPEN}${BOLD}$(_setaf 229)${ESC_CLOSE}"
+
+  # Expose the variables we need in prompt command
+  P_USER=${GB_GREEN_1}${USER_SYMBOL}
+  P_HOST=${GB_BLUE_1}${HOST_SYMBOL}
+  P_WHITE=${GB_FG}
+  P_GREEN=${GB_GREEN_1}
+  P_YELLOW=${GB_YELLOW_1}
+  P_RED=${GB_RED_1}
+  P_RESET=${RESET}
+
+}
+
+bash_prompt_command() {
+
+  local EXIT_CODE=$?
+  local P_EXIT=""
+  local MAXLENGTH=35
+  local TRUNC_SYMBOL=".."
+  local DIR=${PWD##*/}
+  local P_PWD=${PWD/#$HOME/\~}
+
+  MAXLENGTH=$(( ( MAXLENGTH < ${#DIR} ) ? ${#DIR} : MAXLENGTH ))
+
+  local OFFSET=$(( ${#P_PWD} - MAXLENGTH ))
+
+  if [ ${OFFSET} -gt "0" ]; then
+    P_PWD=${P_PWD:$OFFSET:$MAXLENGTH}
+    P_PWD=${TRUNC_SYMBOL}/${P_PWD#*/}
+  fi
+
+  # Update terminal title
+  if [[ $TERM == xterm* ]]; then
+    echo -ne "\033]0;${P_PWD}\007"
+  fi
+
+  # Parse Git branch name
+  P_GIT=$(parse_git_branch)
+
+  # Exit code
+  if [[ $EXIT_CODE != 0 ]]; then
+    P_EXIT+="${P_RED}✘ "
+  fi
+
+  PS1="${P_EXIT}${P_USER}${P_WHITE}@${P_HOST} ${P_YELLOW}${P_PWD}${P_GREEN}${P_GIT}${P_YELLOW}❯ ${P_RESET}"
+}
+
+parse_git_branch() {
+  local OUT=`git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`
+  if [ "$OUT" != "" ]; then echo " $OUT"; fi
+}
+
+_bash_prompt_config
+unset _bash_prompt_config
+
+PROMPT_COMMAND=bash_prompt_command
+

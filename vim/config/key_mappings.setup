@@ -1,0 +1,159 @@
+" ======================================================================================================================
+" change the mapleader from / to ,
+" ======================================================================================================================
+let mapleader=","
+
+" Quickly edit/reload the vimrc file
+nnoremap <silent> <leader>e :tabe $MYVIMRC<CR>
+nnoremap <silent> <leader>? :so $MYVIMRC<CR>
+
+" Toggle line numbers
+nnoremap <silent> <leader>n :set invnumber<CR>
+
+" Diable autoindent for pasting (press F2 before pasting)
+set pastetoggle=<F2>
+
+
+" ======================================================================================================================
+" General movement improvements
+" ======================================================================================================================
+" Use Q for formatting the current paragraph (or selection)
+vmap Q gp
+nmap Q gqap
+
+" For long lines with line wrapping enabled, this mapping allows the up/down keys to go tot he next row (even if its
+" part of the same line). Normal behavior would jump the row(s) to the next line.
+nnoremap j gj
+nnoremap k gk
+
+" Easy window navigation
+map <C-h> <C-w>h
+map <C-j> <C-w>j
+map <C-k> <C-w>k
+map <C-l> <C-w>l
+
+" Clear the search highlight (without mangling search history by pressing ,/
+nmap <silent> <leader>/ :nohlsearch<CR>
+
+" clang-format
+" http://clang.llvm.org/docs/ClangFormat.html
+" map <C-t> :pyf /software/doxygen/clan/clang-format/clang-format.py<CR>
+" imap <C-t> <c-o>:pyf /software/doxygen/clan/clang-format/clang-format.py<CR>
+
+
+" ======================================================================================================================
+" NERDtree
+" ======================================================================================================================
+nnoremap <C-t> :NERDTreeToggle<CR>
+
+
+" ======================================================================================================================
+" YCM
+" ======================================================================================================================
+" Use ,jd to jump to the definition of the symbol under the cursor
+nnoremap <leader>jd :YcmCompleter GoTo<CR>
+
+
+" ======================================================================================================================
+" A plugin
+" ======================================================================================================================
+nnoremap <silent> <leader>h :A<CR>
+
+
+" ======================================================================================================================
+" Taglist
+" ======================================================================================================================
+nnoremap <silent> <F8> :TagbarToggle<CR>
+
+
+" ======================================================================================================================
+" Tags config 
+" ======================================================================================================================
+nnoremap <silent> <F12> :Tlist<CR> " Toggle Taglist window
+
+
+" ======================================================================================================================
+" Save and close files
+" ======================================================================================================================
+nnoremap <leader>wa :wa<CR>
+
+" Quit all files
+nnoremap <leader>qa :qa<CR>
+
+" Save and close all
+nnoremap <leader>wq :xa<CR>
+
+
+" ======================================================================================================================
+" Buffer movements
+" ======================================================================================================================
+map <leader>bd :BD<CR>
+
+" Move to the previous buffer with "gp"
+nnoremap gp :bp<CR>
+
+" Move to the next buffer with "gn"
+nnoremap gn :bn<CR>
+
+" List all possible buffers with "gl"
+nnoremap gl :ls<CR>
+
+" List all possible buffers with "gb" and accept a new buffer argument [1]
+nnoremap gb :ls<CR>:b
+
+
+" ======================================================================================================================
+" Cscope
+" ======================================================================================================================
+""nnoremap <leader>fa :call CscopeFindInteractive(expand('<cword>'))<CR>
+""nnoremap <leader>l :call ToggleLocationList()<CR>
+
+    " s: Find this C symbol
+    nnoremap  <leader>fs :call CscopeFind('s', expand('<cword>'))<CR>
+    " g: Find this definition
+    nnoremap  <leader>fg :call CscopeFind('g', expand('<cword>'))<CR>
+    " d: Find functions called by this function
+    nnoremap  <leader>fd :call CscopeFind('d', expand('<cword>'))<CR>
+    " c: Find functions calling this function
+    nnoremap  <leader>fc :call CscopeFind('c', expand('<cword>'))<CR>
+    " t: Find this text string
+    nnoremap  <leader>ft :call CscopeFind('t', expand('<cword>'))<CR>
+    " e: Find this egrep pattern
+    nnoremap  <leader>fe :call CscopeFind('e', expand('<cword>'))<CR>
+    " f: Find this file
+    nnoremap  <leader>ff :call CscopeFind('f', expand('<cword>'))<CR>
+    " i: Find files #including this file
+    nnoremap  <leader>fi :call CscopeFind('i', expand('<cword>'))<CR>
+
+
+" ======================================================================================================================
+" Dispatch plugin
+" ======================================================================================================================
+" Use Make! to run in the background
+" Create linux debug binaries
+nnoremap <leader>mdl :Make TC_LIST=toolchain-Linux-gcc5.3.0-x86_64 arch-debug<CR>
+
+" Create Wind river linux debug binaries
+nnoremap <leader>mdw :Make TC_LIST=toolchain-Linux-wrl7-ti-66ak2xxx-hf-vfp-neon arch-debug<CR>
+
+" Make the tests
+nnoremap <leader>mt :Make test<CR>
+
+" Clean the build
+nnoremap <leader>mc :Make clean<CR>
+
+" Open the quickfix window, Not sure this should be here but it is what I use it for the most
+nnoremap <leader>r :Copen<CR>
+
+
+
+" ======================================================================================================================
+" Auto-pairs plugin
+" ======================================================================================================================
+
+
+" ======================================================================================================================
+" Undotree plugin
+" ======================================================================================================================
+nnoremap <F9> :UndotreeToggle<CR>
+

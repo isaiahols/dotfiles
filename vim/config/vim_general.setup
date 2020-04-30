@@ -1,0 +1,66 @@
+
+" Allow buffers to be hidden instead of closing them. This means that you can have unwritten chagnes to a file andopen a
+" new file user :e, without being forced to write or undo your changes first. Also, undo buffers and marks are preserved
+" while the buffer is open.
+set hidden
+
+
+" Some basic settings
+set wrap                         " wrap lines
+set history=1000                 " Remember more commands and search history
+set undolevels=1000              " use many much levels of undo
+set title                        " Change the terminal's title
+
+set visualbell                   " Don't beep
+set noerrorbells                 " Don't beep
+
+set nobackup                     " Disable vim backup files
+set noswapfile                   " Disable vim swap files
+
+set tabstop=2                    " A tab is 4 spaces
+set shiftwidth=2                 " Number of spaces to usefor autoindenting
+set expandtab                    " Expand tabs to spaces, can still insert tab with CTRL-V<Tab>
+set smarttab                     " Insert tabs on the start of a line according to the shiftwidth, not tabstop
+set autoindent                   " Always set the autoindenting to on
+set copyindent                   " Copy the previous indentation on autoindententing
+
+set ignorecase                   " Ignore case when searching
+set smartcase                    " Ignore case if search patter is all lowercase, case sensitive otherwise
+
+set number                       " Always show line numbers
+set showmatch                    " Set show matching parenthesis
+set hlsearch                     " Highlight search terms
+set incsearch                    " Show search matches as you type
+
+" Code Folding settings
+set foldmethod=indent
+set foldnestmax=10
+set nofoldenable
+set foldlevel=1
+
+set cursorline                   " Highlight the current line.
+set viminfo='20,\"50             " Keep a .viminfo file
+
+set wildmode=longest:full,full
+set wildmenu
+set wildignore=*.swp,*.bak,*.pyc,*.class
+set backspace=indent,eol,start
+
+" Autodetect appropriate plugins based on file type and enbale indenting intelligence based on the syntax rules for the file type.
+filetype plugin indent on
+
+" Comment string
+autocmd FileType cpp set commentstring=//%s
+autocmd FileType sql set commentstring=--%s
+autocmd FileType py set commentstring=#%s
+autocmd FileType cmake set commentstring=#%s
+autocmd FileType CMakeLists.txt set commentstring=#%s
+
+
+" Set file type specific settings here
+autocmd filetype python set tabstop=4
+autocmd filetype python set shiftwidth=4
+
+
+" Set the tags file to look in current directory and keep moving up if not found.
+set tags=./;

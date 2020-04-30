@@ -1,0 +1,80 @@
+# Shortcuts 
+alias _="sudo" 
+alias g="git" 
+alias v="vim" 
+alias rr="rm -rf" 
+alias json="json -c" 
+ 
+
+#if $(is_supported "alias -g"); then 
+#  alias -g G="| grep -i" 
+#  alias -g H="| head" 
+#  alias -g T="| tail" 
+#  alias -g L="| less" 
+#fi 
+
+
+# List declared aliases, functions 
+
+alias lsa="alias | sed 's/=.*//'" 
+alias lsf="declare -f | grep '^[a-z].* ()' | sed 's/{$//'" # show non _prefixed functions 
+
+
+# dir listing/traversal 
+
+LS_COLORS=`is_supported "ls --color" --color -G` 
+LS_TIMESTYLEISO=`is_supported "ls --time-style=long-iso" --time-style=long-iso` 
+LS_GROUPDIRSFIRST=`is_supported "ls --group-directories-first" --group-directories-first` 
+
+# alias ls="ls $LS_COLORS"
+alias ls="gls --color=auto"
+alias l="ls -lahA $LS_COLORS $LS_TIMESTYLEISO $LS_GROUPDIRSFIRST" 
+alias ll="ls -lA $LS_COLORS" 
+alias lt="ls -lhAtr $LS_COLORS $LS_TIMESTYLEISO $LS_GROUPDIRSFIRST" 
+alias lld="ls -ld $LS_COLORS */"
+alias la="ls -A"
+alias lsn="ls"
+
+unset LS_COLORS LS_TIMESTYLEISO LS_GROUPDIRSFIRST 
+
+
+alias ..="cd .." 
+alias ...="cd ../.." 
+alias ....="cd ../../.." 
+alias -- -="cd -"                  # Go to previous dir with - 
+alias cd.='cd $(readlink -f .)'    # Go to real dir (i.e. if current dir is linked) 
+alias dots='cd ~/.dotfiles/'
+alias c='cd ~/.conan/data/'
+alias p='cd ~/projects/'
+
+alias tree="tree -A" 
+alias treed="tree -d" 
+alias tree1="tree -d -L 1" 
+alias tree2="tree -d -L 2" 
+
+alias cpwd='pwd|tr -d "\n"|pbcopy' 
+
+# Miscellaneous 
+alias quit="exit" 
+alias week="date +%V" 
+alias cls="clear"
+#alias make="colormake"
+
+# Allow color from less to be viewed
+alias less="less -R"
+
+# Show which shell currently using
+alias shell="echo $SHELL"
+# Tmux aliases
+alias tmux="tmux -2"
+alias tnews="tmux new-session -s"
+alias tls="tmux list-session"
+alias tlw="tmux list-window"
+alias tsw="tmux switch -t"
+alias tlc="tmux list-command"
+alias tat="tmux attach -t"
+alias trs="tmux rename-session -t"
+alias tks="tmux kill-session -t"
+alias trw="tmux movew -r"
+
+alias cf="~/.dotfiles/git/git-clang-format --extensions cpp,hpp,h --style=file"

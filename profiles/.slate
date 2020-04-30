@@ -1,0 +1,50 @@
+# Monitor Aliases
+alias mon-laptop    0    # variable for my laptop monitor
+alias mon-mid       1    # Middle monitor
+alias mon-right     2    # right monitor
+
+# Window Position Regions
+alias mid-full            move screenOriginX;screenOriginY screenSizeX;screenSizeY                                    ${mon-mid}
+alias mid-left            move screenOriginX;screenOriginY screenSizeX/2;screenSizeY                                  ${mon-mid}
+alias mid-right           move screenOriginX+screenSizeX/2;screenOriginY screenSizeX/2;screenSizeY                    ${mon-mid}
+alias right-full          move screenOriginX;screenOriginY screenSizeX;screenSizeY                                    ${mon-right}
+alias right-left          move screenOriginX;screenOriginY screenSizeX/2;screenSizeY                                  ${mon-right}
+alias right-right         move screenOriginX+screenSizeX/2;screenOriginY screenSizeX/2;screenSizeY                    ${mon-right}
+alias laptop-full         move screenOriginX;screenOriginY screenSizeX;screenSizeY                                    ${mon-laptop}
+alias laptop-left         move screenOriginX;screenOriginY screenSizeX/2;screenSizeY                                  ${mon-laptop}
+alias laptop-right        move screenOriginX+screenSizeX/2;screenOriginY screenSizeX/2;screenSizeY                    ${mon-laptop}
+alias laptop-righttop     move screenOriginX+screenSizeX/2;screenOriginY screenSizeX/2;screenSizeY/2                  ${mon-laptop}
+alias laptop-rightbottom  move screenOriginX+screenSizeX/2;screenOriginY+screenSizeY/2    screenSizeX/2;screenSizeY/2 ${mon-laptop}
+
+# Window layouts for when I have 3 monitors
+layout 3monitor 'Firefox':REPEAT ${right-full}
+layout 3monitor 'iTerm2':REPEAT ${right-full}
+layout 3monitor 'Code':REPEAT ${mid-full}
+layout 3monitor 'Xcode':REPEAT ${mid-full}
+layout 3monitor 'Android Studio':REPEAT ${mid-full}
+layout 3monitor 'Slack':REPEAT ${laptop-full}
+
+# 2 monitors
+# layout 2monitor 'Firefox' :REPEAT ${mid-right}
+# layout 2monitor 'iTerm2' :REPEAT ${mid-right}
+# layout 2monitor 'Code' :REPEAT ${mid-left}
+# layout 2monitor 'Xcode' :REPEAT ${mid-left}
+# layout 2monitor 'Android Studio' :REPEAT ${mid-left}
+# layout 2monitor 'Slack':REPEAT ${laptop-full}
+
+# Single monitor window layouts
+layout 1monitor 'Firefox':REPEAT ${laptop-full}
+layout 1monitor 'Code':REPEAT ${laptop-full}
+layout 1monitor 'Slack':REPEAT ${laptop-full}
+layout 1monitor 'iTerm2':REPEAT ${laptop-full}
+layout 1monitor 'Android Studio':REPEAT ${laptop-full}
+layout 1monitor 'Xcode':REPEAT ${laptop-full}
+
+# Keyboard shortcuts for each layout
+# bind l:shift;ctrl layout 3monitor
+# bind g:shift;ctrl grid padding:5 0:2,1 1:2,2
+
+# Auto-detect when a monitor is plugged in or out
+default 3monitor count:3
+# default 2monitor count:2
+default 1monitor count:1

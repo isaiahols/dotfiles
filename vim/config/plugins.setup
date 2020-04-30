@@ -1,0 +1,131 @@
+" ======================================================================================================================
+" =
+" = This file is for the various plugins settings that can be set
+" =
+" ======================================================================================================================
+
+" ======================================================================================================================
+" Tags config 
+" ======================================================================================================================
+let Tlist_WinWidth = 60        " How big to make the tlist window
+let Tlist_Exit_OnlyWindow = 1  " Exit vim if Taglist is only window open
+
+
+" ======================================================================================================================
+" YCM (You Complete Me)
+" http://confluence.csw.l-3com.com/display/~ademille/2015/05/21/Vim+Auto-Complete+Awesomeness
+" ======================================================================================================================
+let g:ycm_confirm_extra_conf = 0
+let g:ycm_enable_diagnostic_signs = 1
+let g:ycm_enable_diagnostic_highlighting = 0
+let g:ycm_always_populate_location_list = 1 "default 0
+let g:ycm_open_loclist_on_ycm_diags = 1 "default 1
+let g:ycm_server_use_vim_stdout = 0 "default 0 (logging to console)
+let g:ycm_server_log_level = 'info' "default info
+" let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
+let g:ycm_autoclose_preview_window_after_completion = 1
+let g:ycm_filetype_whitelist = { 'cpp': 1, 'c': 1, 'python':1 }
+let g:ycm_cache_omnifunc=0
+let g:ycm_seed_identifiers_with_syntax=1
+
+" " Start autocompletion after 4 chars
+" let g:ycm_min_num_of_chars_for_completion = 4
+" let g:ycm_min_num_identifier_candidate_chars = 4
+" let g:ycm_enable_diagnostic_highlighting = ,wq0
+
+set completeopt-=preview
+
+" ======================================================================================================================
+"  Airline
+" ======================================================================================================================
+set laststatus=2
+let g:airline_powerline_fonts = 1                           " Use Powerline fonts to show beautiful symbols
+"let g:airline_theme = 'murmur'                              " Select 'murmur' theme as default one
+let g:airline_inactive_collapse = 0                         " Do not collapse the status line while having multiple windows
+let g:airline#extensions#whitespace#enabled = 0             " Do not check for whitespaces
+let g:airline#extensions#tabline#enabled = 1                " Display tab bar with buffers
+let g:airline#extensions#branch#enabled = 1                 " Enable Git client integration
+let g:airline#extensions#tagbar#enabled = 1                 " Enable Tagbar integration
+let g:airline#extensions#hunks#enabled = 1                  " Enable Git hunks integration
+
+
+" ======================================================================================================================
+" UltiSnips plugin
+" ======================================================================================================================
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+
+
+" ======================================================================================================================
+" SuperTab plugin
+" ======================================================================================================================
+"let loaded_supertab = 1                                    " Uncomment the this line to disable the plugin
+let g:SuperTabDefaultCompletionType='<c-x><c-u>'            " 'user' defined default completion type
+let g:SuperTabDefaultCompletionType = 'context'             " 'context' defined default completion type
+let g:SuperTabCompletionContexts = ['s:ContextText', 's:ContextDiscover']
+let g:SuperTabLongestHighlight=1
+let g:SuperTabLongestEnhanced=1
+
+
+" ======================================================================================================================
+" NERDTree plugin
+" ======================================================================================================================
+let g:NERDTreeMouseMode = 2                                 " Single-click to expand the directory, double-click to open the file
+let g:NERDTreeShowHidden = 1                                " Show hidden files
+
+" Close vim if NERDTree is the only thing open
+" autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+" Open NERD Tree if no file specified with vim or opening a directory
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
+
+
+" ======================================================================================================================
+" Cscope plugin
+" ======================================================================================================================
+ let g:cscope_silent = 1
+
+
+" ======================================================================================================================
+" Easy tags plugin
+" ======================================================================================================================
+" make sure tags is set. This makes it so project specific tags files are used
+let g:easytags_dynamic_files = 1
+let g:easytags_on_cursorhold = 0
+let g:easytags_async = 1 
+
+" ======================================================================================================================
+" Dispatch plugin
+" ======================================================================================================================
+
+
+
+" ======================================================================================================================
+" Auto-pairs plugin
+" ======================================================================================================================
+
+
+
+" ======================================================================================================================
+" Clang-format plugin
+" ======================================================================================================================
+let g:clang_format#detect_style_file = 1              " Use the .clang-format file
+" let g:clang_format#auto_format = 1                    " Format the buffer on write
+let g:clang_format#auto_format_on_insert_leave = 1    " Format the line(s) that were inserted
+let g:clang_format#enable_fallback_style = 0          " When set to 0 clang-format does nothing if it cannot find .clang-format file.
+
+
+" ======================================================================================================================
+" Undotree plugin
+" ======================================================================================================================
+" Set the window format
+let g:undotree_WindowLayout = 3
+
+if has("persistent_undo")
+    set undodir=~/.undodir/
+    set undofile
+endif
+

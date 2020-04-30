@@ -1,0 +1,84 @@
+
+" Force 256 colors
+set t_Co=256
+
+" Default colorscheme
+if &t_Co >= 256 || has("gui_running")
+   colorscheme gruvbox " wombat256dave "mustang
+   set background=dark    " Setting dark mode
+endif
+
+if &t_Co > 2 || has("gui_running")
+   " switch syntax highlighting on, when the terminal has colors
+   syntax on
+endif
+
+" Highlight whitespaces
+set nolist
+set listchars=tab:>.,trail:.,extends:#,nbsp:.
+
+" Disable highlighting whitespaces for certain types of files
+if has('autocmd')
+	autocmd filetype html,xml set listchars-=tab:».
+endif
+
+" Highlight the 121 column to show if line is too long.
+set colorcolumn=121
+highlight ColorColumn ctermbg=16
+
+
+" ======================================================================================================================
+" Status Line
+" ======================================================================================================================
+
+" Status-line options
+"
+" b value of the byte under the cursor
+" B value of the byte under the cursor (hex)
+" c column number
+" F Full path to the fiel in the buffer
+" h Help buffer flag
+" l Line numeber
+" L Total lines in file
+" m Modified flag, text is " [+]" or " [-]" if 'modifiable' is off
+" M Modified flag, text is ",+" or ",-"
+" P Percentatge through the file in the display window
+" r Readonly flag, text is " [RO]"
+" t File name
+" V Virtual column number
+" y Type of file in the buffer, e.g., " [vim]", see filetype
+" Y Type of file in the bugger, e.g., ",VIM", see filetype
+"
+" { NF  Evalutate expression between '{' and '}' and substitute result.
+" ( -   Start of item group. Can be used for setting the width and alignment of a section. Must be followed by %) somwhere
+" ) -   End of item group. No width fields allowed.
+" < -   Where to truncate line if too long. Default is at the start, no width fields allowed
+" = -   Separation point between left and right aligned items no width fields allowed.
+
+" Laststatus determines when the status bar shows up, with 2 = always
+" set laststatus=2
+" set statusline=%<%m%r%7y\ %<%{FileTime()}%<%=\tab:%-2{ShowTab()}\ %-14(%=line:%4l(%L)%)\ %-8(%=col:%c%V%)\ %P
+
+fu! FileTime()
+  let ext=tolower(expand("%:e"))
+  let fname=tolower(expand('%<'))
+  let filename=fname. '.' . ext
+  let msg=" " . strftime("(Modified: %b,%d %y %H:%M:%S)", getftime(filename))
+  return msg
+endf
+
+fu! CurTime()
+  let ftime=""
+  let ftime=ftime." ".strftime("%b, %d %y %H:%M:%S")
+  return ftime
+endf
+
+fu! ShowTab()
+  let Tablevel = (indent('.') / &ts )
+  if Tablevel == 0
+    let TabLevel='*'
+  endif
+  return TabLevel
+endf
+
+
