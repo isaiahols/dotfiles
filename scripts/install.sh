@@ -27,7 +27,7 @@ install_nodejs
 install_ruby
 install_vim
 install_vscode
-install_conan
+# install_conan
 
 #######################################################
 # libevent 2.x

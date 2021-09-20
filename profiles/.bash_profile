@@ -76,3 +76,5 @@ export OS DOTFILES_DIR EXTRA_DIR
 # export PATH="/usr/local/opt/opencv@2/bin:$PATH"
 
 # export DYLD_FALLBACK_LIBRARY_PATH="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib"
+
+export BASH_SILENCE_DEPRECATION_WARNING=1
