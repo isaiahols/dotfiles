@@ -64,3 +64,21 @@ install_vim() {
   popd
 
 }
+
+install_react_native_tools() {
+  echo
+  echo    "********************************"
+  read -p "Do you want to install React Native Tools? Y/n " -n 1 -r
+  echo    "********************************"
+  echo
+  if [[ $REPLY =~ ^[Nn]$ ]]; then
+    return
+  fi
+  
+  # RN stuff
+  $INSTALL_CMD watchman
+  $INSTALL_CMD --cask adoptopenjdk/openjdk/adoptopenjdk8 
+  sudo gem install cocoapods
+  # Debugger
+  $INSTALL_CMD --cask react-native-debugger
+}
