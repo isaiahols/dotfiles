@@ -1,6 +1,7 @@
 [user]
   name = Isaiah Olson
-  email = isaiahols@gmail.com
+  # email = isaiahols@gmail.com
+  email = isaiah.olson@finicity.com
   
 [core]
   excludesfile = ~/.gitignore_global
