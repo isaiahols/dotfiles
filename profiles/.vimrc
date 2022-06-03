@@ -25,7 +25,8 @@ call vundle#begin()
 
 
 " Let Vundle manage vundle
-Plugin 'file://'.$HOME.'/.vim/bundle/Vundle.vim'
+" Plugin 'file://'.$HOME.'/.vim/bundle/Vundle.vim'
+Plugin 'VundleVim/Vundle.vim'
 
 " Plugins
 Plugin 'vim-scripts/a.vim'
